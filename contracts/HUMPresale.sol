@@ -50,13 +50,13 @@ contract HUMPresale is WhitelistedCrowdsale, CappedCrowdsale, IndividuallyCapped
     require(isOverMinimum && isOnSale);
   }
 
-  function startSale() public onlyAdminOrAdvisor {
+  function openSale() public onlyAdminOrAdvisor {
     require(!isOnSale);
 
     isOnSale = true;
   }
 
-  function endSale() public onlyAdminOrAdvisor {
+  function closeSale() public onlyAdminOrAdvisor {
     require(isOnSale);
 
     withdrawToken();
@@ -74,7 +74,7 @@ contract HUMPresale is WhitelistedCrowdsale, CappedCrowdsale, IndividuallyCapped
 
     for (uint i = 0; i < contributors.length; i++) {
       if (bonusTokens[contributors[i]] > 0) {
-        token.transfer(contributors[i], bonusTokens[contributors[i]]);
+        HUMToken(token).mint(contributors[i], bonusTokens[contributors[i]]);
         bonusTokens[contributors[i]] = 0;
       }
     }
