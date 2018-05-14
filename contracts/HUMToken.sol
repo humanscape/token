@@ -26,7 +26,7 @@ contract HUMToken is MintableToken, BurnableToken {
   constructor(address _wallet) public {
     totalSupply_ = INITIAL_SUPPLY;
     balances[_wallet] = INITIAL_SUPPLY;
-    emit Transfer(0x0, _wallet, INITIAL_SUPPLY);
+    emit Transfer(address(0), _wallet, INITIAL_SUPPLY);
   }
 
   modifier onlyTransferable() {
