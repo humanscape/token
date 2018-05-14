@@ -20,15 +20,7 @@ contract IndividuallyCappedCrowdsale is Crowdsale, RBACImplement {
   }
 
   /**
-   * @dev Sets a specific user's maximum contribution.
-   * @param _cap Wei limit for individual contribution
-   */
-  function setUserCap(uint256 _cap) external onlyAdminOrAdvisor {
-    individualCap = _cap;
-  }
-
-  /**
-   * @dev Returns the cap of a specific user.
+   * @dev Returns the cap per a user.
    * @return Current cap for individual user
    */
   function getUserCap() public view returns (uint256) {
