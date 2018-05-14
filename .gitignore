@@ -1,0 +1,5 @@
+node_modules/
+build/
+chaindata/
+.DS_Store
+.node-version
