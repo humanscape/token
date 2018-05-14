@@ -22,7 +22,7 @@ contract RBACImplement is RBACWithAdmin {
     addRole(msg.sender, ROLE_ADVISOR);
   }
 
-  function onlyAdminsCanDoThis()
+/*  function onlyAdminsCanDoThis()
     onlyAdmin
     view
     external
@@ -49,6 +49,7 @@ contract RBACImplement is RBACWithAdmin {
     external
   {
   }
+*/
 
   // admins can remove advisor's role
   function removeAdvisor(address _addr)
