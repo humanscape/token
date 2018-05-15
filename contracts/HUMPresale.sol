@@ -67,8 +67,9 @@ contract HUMPresale is WhitelistedCrowdsale, CappedCrowdsale, IndividuallyCapped
   }
 
   function withdrawToken() public onlyAdminOrAdvisor {
-    token.transfer(wallet, token.balanceOf(this));
-    emit Withdraw(wallet, token.balanceOf(this));
+    uint256 balanceOfThis = token.balanceOf(this);
+    token.transfer(wallet, balanceOfThis);
+    emit Withdraw(wallet, balanceOfThis);
   }
 
   function distributeBonusTokens() public onlyAdminOrAdvisor {
