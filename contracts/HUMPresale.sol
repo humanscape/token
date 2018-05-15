@@ -36,8 +36,9 @@ contract HUMPresale is WhitelistedCrowdsale, CappedCrowdsale, IndividuallyCapped
 
   function _processPurchase(address _beneficiary, uint256 _tokenAmount) internal {
     super._processPurchase(_beneficiary, _tokenAmount);
-    if (bonusPercent != 0) {
-      if (bonusTokens[_beneficiary] == 0) {
+
+    if (bonusPercent > 0) {
+      if (contributions[_beneficiary] == 0) {
         contributors.push(_beneficiary);
       }
       bonusTokens[_beneficiary] = bonusTokens[_beneficiary].add(_tokenAmount.mul(bonusPercent).div(100));
