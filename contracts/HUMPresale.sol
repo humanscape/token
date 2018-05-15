@@ -78,7 +78,7 @@ contract HUMPresale is WhitelistedCrowdsale, CappedCrowdsale, IndividuallyCapped
 
     for (uint i = 0; i < contributors.length; i++) {
       if (bonusTokens[contributors[i]] > 0) {
-        HUMToken(token).mint(contributors[i], bonusTokens[contributors[i]]);
+        token.transferFrom(wallet, contributors[i], bonusTokens[contributors[i]]);
         bonusTokens[contributors[i]] = 0;
       }
     }
@@ -119,7 +119,7 @@ contract HUMPresale is WhitelistedCrowdsale, CappedCrowdsale, IndividuallyCapped
 
     for (uint i = 0; i < _bonusList.length; i++) {
       if (bonusTokens[_bonusList[i]] > 0) {
-        HUMToken(token).mint(_bonusList[i], bonusTokens[_bonusList[i]]);
+        token.transferFrom(wallet, _bonusList[i], bonusTokens[_bonusList[i]]);
         bonusTokens[_bonusList[i]] = 0;
       }
     }
