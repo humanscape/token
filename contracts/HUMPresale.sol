@@ -34,6 +34,10 @@ contract HUMPresale is WhitelistedCrowdsale, CappedCrowdsale, IndividuallyCapped
     bonusPercent = _bonusPercent;
   }
 
+  function modifyTokenPrice(uint256 _rate) public onlyAdminOrAdvisor {
+    rate = _rate;
+  }
+
   function _processPurchase(address _beneficiary, uint256 _tokenAmount) internal {
     super._processPurchase(_beneficiary, _tokenAmount);
 
@@ -88,13 +92,13 @@ contract HUMPresale is WhitelistedCrowdsale, CappedCrowdsale, IndividuallyCapped
     emit DistrubuteBonusTokens(msg.sender);
   }
 
-  function getContributorList() public view returns(address[]) {
+  function getContributors() public view onlyAdminOrAdvisor returns(address[]) {
     return contributors;
   }
 
   /// @dev get addresses who has bonus tokens
   /// @return Returns array of addresses.
-  function getBonusList() public view returns(address[]) {
+  function getBonusList() public view onlyAdminOrAdvisor returns(address[]) {
     address[] memory contributorsTmp = new address[](contributors.length);
     uint count = 0;
     uint i;
