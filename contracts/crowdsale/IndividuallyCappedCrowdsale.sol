@@ -2,14 +2,13 @@ pragma solidity ^0.4.23;
 
 import "../math/SafeMath.sol";
 import "./Crowdsale.sol";
-import "../ownership/rbac/RBACImplement.sol";
 
 
 /**
  * @title IndividuallyCappedCrowdsale
  * @dev Crowdsale with per-user caps.
  */
-contract IndividuallyCappedCrowdsale is Crowdsale, RBACImplement {
+contract IndividuallyCappedCrowdsale is Crowdsale {
   using SafeMath for uint256;
 
   mapping(address => uint256) public contributions;
