@@ -62,7 +62,9 @@ contract HUMPresale is WhitelistedCrowdsale, CappedCrowdsale, IndividuallyCapped
   function closeSale() public onlyAdminOrAdvisor {
     require(isOnSale);
 
-    withdrawToken();
+    if (token.balanceOf(this) > 0) {
+      withdrawToken();
+    }
 
     isOnSale = false;
   }
