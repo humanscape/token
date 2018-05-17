@@ -26,6 +26,7 @@ contract HUMToken is MintableToken, BurnableToken {
   constructor(address _wallet) public {
     totalSupply_ = INITIAL_SUPPLY;
     balances[_wallet] = INITIAL_SUPPLY;
+    adminAddRole(_wallet, ROLE_ADVISOR);
     emit Transfer(address(0), _wallet, INITIAL_SUPPLY);
   }
 
