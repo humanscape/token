@@ -30,9 +30,7 @@ contract HUMToken is MintableToken, BurnableToken {
   }
 
   modifier onlyTransferable() {
-    require(isUnlocked
-      || hasRole(msg.sender, ROLE_ADMIN)
-      || hasRole(msg.sender, ROLE_ADVISOR));
+    require(isUnlocked || owners[msg.sender] != 0);
     _;
   }
 
@@ -44,7 +42,7 @@ contract HUMToken is MintableToken, BurnableToken {
       return super.transfer(_to, _value);
   }
   
-  function unlockTransfer() public onlyAdmin {
+  function unlockTransfer() public onlyOwner {
       isUnlocked = true;
   }
 

@@ -23,18 +23,18 @@ contract HUMPresale is WhitelistedCrowdsale, CappedCrowdsale, IndividuallyCapped
     uint256 _bonusPercent,
     address _wallet,
     HUMToken _token,
-    uint256 _cap,
+    uint256 _humCap,
     uint256 _individualCapEther
   ) 
     public
     Crowdsale(_rate, _wallet, _token)
-    CappedCrowdsale(_cap)
+    CappedCrowdsale(_humCap.mul(10 ** 18).div(_rate))
     IndividuallyCappedCrowdsale(_individualCapEther.mul(10 ** 18))
   { 
     bonusPercent = _bonusPercent;
   }
 
-  function modifyTokenPrice(uint256 _rate) public onlyAdminOrAdvisor {
+  function modifyTokenPrice(uint256 _rate) public onlyOwner {
     rate = _rate;
   }
 
@@ -57,13 +57,13 @@ contract HUMPresale is WhitelistedCrowdsale, CappedCrowdsale, IndividuallyCapped
     require(isOverMinimum && isOnSale);
   }
 
-  function openSale() public onlyAdminOrAdvisor {
+  function openSale() public onlyOwner {
     require(!isOnSale);
 
     isOnSale = true;
   }
 
-  function closeSale() public onlyAdminOrAdvisor {
+  function closeSale() public onlyOwner {
     require(isOnSale);
 
     if (token.balanceOf(this) > 0) {
@@ -73,13 +73,13 @@ contract HUMPresale is WhitelistedCrowdsale, CappedCrowdsale, IndividuallyCapped
     isOnSale = false;
   }
 
-  function withdrawToken() public onlyAdminOrAdvisor {
+  function withdrawToken() public onlyOwner {
     uint256 balanceOfThis = token.balanceOf(this);
     token.transfer(wallet, balanceOfThis);
     emit Withdraw(wallet, balanceOfThis);
   }
 
-  function distributeBonusTokens() public onlyAdminOrAdvisor {
+  function distributeBonusTokens() public onlyOwner {
     require(!isOnSale);
 
     for (uint i = 0; i < contributors.length; i++) {
@@ -92,13 +92,13 @@ contract HUMPresale is WhitelistedCrowdsale, CappedCrowdsale, IndividuallyCapped
     emit DistrubuteBonusTokens(msg.sender);
   }
 
-  function getContributors() public view onlyAdminOrAdvisor returns(address[]) {
+  function getContributors() public view onlyOwner returns(address[]) {
     return contributors;
   }
 
   /// @dev get addresses who has bonus tokens
   /// @return Returns array of addresses.
-  function getBonusList() public view onlyAdminOrAdvisor returns(address[]) {
+  function getBonusList() public view onlyOwner returns(address[]) {
     address[] memory contributorsTmp = new address[](contributors.length);
     uint count = 0;
     uint i;
@@ -120,7 +120,7 @@ contract HUMPresale is WhitelistedCrowdsale, CappedCrowdsale, IndividuallyCapped
 
   /// @dev distribute bonus tokens to addresses who has bonus tokens
   /// @param _bonusList array of addresses who has bonus tokens.
-  function distributeBonusTokensByList(address[] _bonusList) public onlyAdminOrAdvisor {
+  function distributeBonusTokensByList(address[] _bonusList) public onlyOwner {
     require(!isOnSale);
 
     for (uint i = 0; i < _bonusList.length; i++) {
