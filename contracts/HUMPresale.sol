@@ -1,12 +1,11 @@
 pragma solidity ^0.4.23;
 
 import "./crowdsale/WhitelistedCrowdsale.sol";
-import "./crowdsale/CappedCrowdsale.sol";
 import "./crowdsale/IndividuallyCappedCrowdsale.sol";
 import "./HUMToken.sol";
 
 
-contract HUMPresale is WhitelistedCrowdsale, CappedCrowdsale, IndividuallyCappedCrowdsale {
+contract HUMPresale is WhitelistedCrowdsale, IndividuallyCappedCrowdsale {
   
   uint256 public constant minimum = 100000000000000000; // 0.1 ether
   bool public isOnSale = false;
@@ -23,12 +22,10 @@ contract HUMPresale is WhitelistedCrowdsale, CappedCrowdsale, IndividuallyCapped
     uint256 _bonusPercent,
     address _wallet,
     HUMToken _token,
-    uint256 _humCap,
     uint256 _individualCapEther
   ) 
     public
     Crowdsale(_rate, _wallet, _token)
-    CappedCrowdsale(_humCap.mul(10 ** 18).div(_rate))
     IndividuallyCappedCrowdsale(_individualCapEther.mul(10 ** 18))
   { 
     bonusPercent = _bonusPercent;
