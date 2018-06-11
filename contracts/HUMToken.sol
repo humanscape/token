@@ -2,6 +2,7 @@ pragma solidity ^0.4.23;
 
 import "./token/MintableToken.sol";
 import "./token/BurnableToken.sol";
+import "./token/Blacklisted.sol";
 
 
 /**
@@ -10,7 +11,7 @@ import "./token/BurnableToken.sol";
  * Note they can later distribute these tokens as they wish using `transfer` and other
  * `StandardToken` functions.
  */
-contract HUMToken is MintableToken, BurnableToken {
+contract HUMToken is MintableToken, BurnableToken, Blacklisted {
 
   string public constant name = "HUMToken"; // solium-disable-line uppercase
   string public constant symbol = "HUM"; // solium-disable-line uppercase
@@ -34,11 +35,11 @@ contract HUMToken is MintableToken, BurnableToken {
     _;
   }
 
-  function transferFrom(address _from, address _to, uint256 _value) public onlyTransferable returns (bool) {
+  function transferFrom(address _from, address _to, uint256 _value) public onlyTransferable notBlacklisted returns (bool) {
       return super.transferFrom(_from, _to, _value);
   }
 
-  function transfer(address _to, uint256 _value) public onlyTransferable returns (bool) {
+  function transfer(address _to, uint256 _value) public onlyTransferable notBlacklisted returns (bool) {
       return super.transfer(_to, _value);
   }
   

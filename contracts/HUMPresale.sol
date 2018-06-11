@@ -42,7 +42,7 @@ contract HUMPresale is WhitelistedCrowdsale, IndividuallyCappedCrowdsale {
       if (contributions[_beneficiary] == 0) {
         contributors.push(_beneficiary);
       }
-      bonusTokens[_beneficiary] = bonusTokens[_beneficiary].add(_tokenAmount.mul(bonusPercent).div(100));
+      bonusTokens[_beneficiary] = bonusTokens[_beneficiary].add(_tokenAmount.mul(bonusPercent).div(1000));
     }
   }
 
