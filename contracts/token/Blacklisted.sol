@@ -28,11 +28,11 @@ contract Blacklisted is MultiOwnable {
 
   /**
    * @dev Adds list of addresses to blacklist. Not overloaded due to limitations with truffle testing.
-   * @param _beneficiaries Addresses to be added to the blacklist
+   * @param _villains Addresses to be added to the blacklist
    */
-  function addManyToBlacklist(address[] _beneficiaries) external onlyOwner {
-    for (uint256 i = 0; i < _beneficiaries.length; i++) {
-      blacklist[_beneficiaries[i]] = true;
+  function addManyToBlacklist(address[] _villains) external onlyOwner {
+    for (uint256 i = 0; i < _villains.length; i++) {
+      blacklist[_villains[i]] = true;
     }
   }
 
