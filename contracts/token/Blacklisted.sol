@@ -6,7 +6,7 @@ import "../ownership/MultiOwnable.sol";
  * @title Basic token
  * @dev Basic version of StandardToken, with no allowances.
  */
-contract Blacklisted {
+contract Blacklisted is MultiOwnable {
 
   mapping(address => bool) public blacklist;
 
@@ -14,7 +14,7 @@ contract Blacklisted {
   * @dev Throws if called by any account other than the owner.
   */
   modifier notBlacklisted() {
-    require(blacklist[_villain] == false);
+    require(blacklist[msg.sender] == false);
     _;
   }
 

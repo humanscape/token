@@ -46,5 +46,9 @@ contract HUMToken is MintableToken, BurnableToken, Blacklisted {
   function unlockTransfer() public onlyOwner {
       isUnlocked = true;
   }
+  
+  function lockTransfer() public onlyOwner {
+      isUnlocked = false;
+  }
 
 }
