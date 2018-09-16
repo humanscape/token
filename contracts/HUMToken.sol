@@ -3,7 +3,7 @@ pragma solidity ^0.4.23;
 import "./token/MintableToken.sol";
 import "./token/BurnableToken.sol";
 import "./token/Blacklisted.sol";
-
+import "./introspection/ERC165.sol";
 
 /**
  * @title HUMToken
@@ -11,7 +11,7 @@ import "./token/Blacklisted.sol";
  * Note they can later distribute these tokens as they wish using `transfer` and other
  * `StandardToken` functions.
  */
-contract HUMToken is MintableToken, BurnableToken, Blacklisted {
+contract HUMToken is MintableToken, BurnableToken, Blacklisted, ERC165 {
 
   string public constant name = "HUMToken"; // solium-disable-line uppercase
   string public constant symbol = "HUM"; // solium-disable-line uppercase
@@ -28,6 +28,16 @@ contract HUMToken is MintableToken, BurnableToken, Blacklisted {
     totalSupply_ = INITIAL_SUPPLY;
     balances[_wallet] = INITIAL_SUPPLY;
     emit Transfer(address(0), _wallet, INITIAL_SUPPLY);
+
+    // ERC165. register ERC20 Interface
+    _registerInterface(
+        bytes4(keccak256('totalSupply()'))
+        ^ bytes4(keccak256('balanceOf(address)'))
+        ^ bytes4(keccak256('transfer(address,uint256)'))
+        ^ bytes4(keccak256('allowance(address,address)'))
+        ^ bytes4(keccak256('transferFrom(address,address,uint256)'))
+        ^ bytes4(keccak256('approve(address,uint256)'))
+    );
   }
 
   modifier onlyTransferable() {
