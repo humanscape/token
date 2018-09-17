@@ -3,3 +3,4 @@ build/
 chaindata/
 .DS_Store
 .node-version
+.vscode/
