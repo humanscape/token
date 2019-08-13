@@ -13,11 +13,11 @@ import "./token/Blacklisted.sol";
  */
 contract HUMToken is MintableToken, BurnableToken, Blacklisted {
 
-  string public constant name = "HUMToken"; // solium-disable-line uppercase
+  string public constant name = "Humanscape"; // solium-disable-line uppercase
   string public constant symbol = "HUM"; // solium-disable-line uppercase
   uint8 public constant decimals = 18; // solium-disable-line uppercase, // 18 decimals is the strongly suggested default, avoid changing it
 
-  uint256 public constant INITIAL_SUPPLY = 125000 * 1000 * 1000 * (10 ** uint256(decimals)); // 125,000,000,000 HUM
+  uint256 public constant INITIAL_SUPPLY = 1250 * 1000 * 1000 * (10 ** uint256(decimals)); // 1,250,000,000 HUM
 
   bool public isUnlocked = false;
   
